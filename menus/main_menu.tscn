@@ -60,7 +60,7 @@ flat = true
 margin_top = 24.0
 margin_right = 92.0
 margin_bottom = 44.0
-text = "OPTONS"
+text = "OPTIONS"
 flat = true
 
 [node name="quit_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]

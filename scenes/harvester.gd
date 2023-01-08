@@ -1,16 +1,28 @@
 extends KinematicBody2D
 
-onready var t1 = get_node("thresher/thresher1")
-onready var t2 = get_node("thresher/thresher2")
-onready var t3 = get_node("thresher/thresher3")
+onready var t1: Node2D = get_node("thresher/thresher1")
+onready var t2: Node2D = get_node("thresher/thresher2")
+onready var t3: Node2D = get_node("thresher/thresher3")
+
+onready var p1: Particles2D = get_node("thresher/thresher1/particles1")
+onready var p2: Particles2D = get_node("thresher/thresher2/particles2")
+onready var p3: Particles2D = get_node("thresher/thresher3/particles3")
+
+onready var e1: Particles2D = get_node("harvester_exhaust_particles")
 
 onready var thresher_shape = get_node("thresher_shape")
 onready var harvester_shape = get_node("harvester_shape")
 onready var sprite = get_node("sprite")
 
-const MOVEMENT_SPEED: float = 16.0
+const MOVEMENT_SPEED: float = 8.0
 const FAST_MOVEMENT_MULTIPLIER: float = 2.0
 const ROTATION_SPEED: float = 45.0 # degrees per second
+
+# use this to track if we should be spewing wheat out or not
+var last_threshed_threshold: float = 0.5
+
+# tracking threshing, when did we last thresh?
+var last_threshed_timer: float = 0.0
 
 # physics
 var velocity: Vector2 = Vector2.ZERO
@@ -56,7 +68,7 @@ func _input(event):
 		elif event.is_action_released("turn_right"):
 			is_turning_right = false
 
-func _thresh_crop(tile_map: TileMap, tile_position: Vector2, tile_value: int):
+func _thresh_crop(tile_map: TileMap, tile_position: Vector2, tile_value: int, emitter: Particles2D):
 	
 	var DIRT_TILE_VALUE = 6
 	var WHEAT_TILE_VALUE = 174
@@ -65,6 +77,11 @@ func _thresh_crop(tile_map: TileMap, tile_position: Vector2, tile_value: int):
 		tile_map.set_cellv(tile_position, DIRT_TILE_VALUE)
 		tile_map.update_bitmask_area(tile_position)
 		Game.register_threshed_crop()
+		emitter.emitting = true
+		_update_thresh_timer()
+
+func _update_thresh_timer():
+	last_threshed_timer = last_threshed_threshold
 
 func _thresh_shit():
 	
@@ -82,9 +99,9 @@ func _thresh_shit():
 	var t2_tile_value = tile_map.get_cellv(t2_tile_pos)
 	var t3_tile_value = tile_map.get_cellv(t3_tile_pos)
 	
-	_thresh_crop(tile_map, t1_tile_pos, t1_tile_value)
-	_thresh_crop(tile_map, t2_tile_pos, t2_tile_value)
-	_thresh_crop(tile_map, t3_tile_pos, t3_tile_value)
+	_thresh_crop(tile_map, t1_tile_pos, t1_tile_value, p1)
+	_thresh_crop(tile_map, t2_tile_pos, t2_tile_value, p2)
+	_thresh_crop(tile_map, t3_tile_pos, t3_tile_value, p3)
 
 func _physics_process(delta):
 	
@@ -131,4 +148,12 @@ func _physics_process(delta):
 	
 	# every tick, thresh
 	_thresh_shit()
+	
+	last_threshed_timer -= delta
+	
+	# if we threshin, particles
+	if last_threshed_timer > 0.0:
+		e1.emitting = true
+	else:
+		e1.emitting = false
 	
