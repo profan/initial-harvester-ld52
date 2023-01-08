@@ -85,7 +85,6 @@ func _thresh_shit():
 	_thresh_crop(tile_map, t1_tile_pos, t1_tile_value)
 	_thresh_crop(tile_map, t2_tile_pos, t2_tile_value)
 	_thresh_crop(tile_map, t3_tile_pos, t3_tile_value)
-	
 
 func _physics_process(delta):
 	
