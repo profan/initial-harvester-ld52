@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/harvester_tracks_particles.tres" type="Material" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 64, 14.5 )
+extents = Vector2( 62, 11 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 44.5 )
@@ -61,7 +61,7 @@ local_coords = false
 process_material = ExtResource( 3 )
 
 [node name="thresher_shape" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -43.5 )
+position = Vector2( 0, -43 )
 shape = SubResource( 1 )
 
 [node name="harvester_shape" type="CollisionShape2D" parent="."]
