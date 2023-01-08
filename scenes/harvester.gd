@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var sprite = get_node("sprite")
+
 const MOVEMENT_SPEED: float = 16.0
 const FAST_MOVEMENT_MULTIPLIER: float = 2.0
 const ROTATION_SPEED: float = 45.0 # degrees per second
@@ -70,6 +72,16 @@ func _physics_process(delta):
 	
 	velocity += movement_delta * MOVEMENT_SPEED * movement_speed_multiplier
 	angular_velocity += rotation_delta * 0.25
+	
+	if abs(angular_velocity) > 0.5:
+		
+		if angular_velocity < 0.0:
+			sprite.frame = 1
+		elif angular_velocity> 0.0:
+			sprite.frame = 2
+			
+	else:
+		sprite.frame = 0
 	
 	var local_velocity_up = velocity.rotated(rotation)
 	move_and_slide(local_velocity_up)
