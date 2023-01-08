@@ -6,6 +6,7 @@ const ROTATION_SPEED: float = 45.0 # degrees per second
 
 # physics
 var velocity: Vector2 = Vector2.ZERO
+var current_wheel_angle: float = 0.0
 var angular_velocity: float = 0.0
 
 # input state
@@ -59,11 +60,13 @@ func _physics_process(delta):
 	if is_moving_backwards:
 		movement_delta -= Vector2.UP
 
-	if is_turning_left:
-		rotation_delta -= deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
-	
-	if is_turning_right:
-		rotation_delta += deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
+	if is_moving_forwards or is_moving_backwards:
+		
+		if is_turning_left:
+			rotation_delta -= deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
+		
+		if is_turning_right:
+			rotation_delta += deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
 	
 	velocity += movement_delta * MOVEMENT_SPEED * movement_speed_multiplier
 	angular_velocity += rotation_delta * 0.25
@@ -72,7 +75,7 @@ func _physics_process(delta):
 	move_and_slide(local_velocity_up)
 	
 	# rotation!
-	rotation_degrees += angular_velocity
+	rotation_degrees += angular_velocity # * min(1.0, (velocity.length() / MOVEMENT_SPEED))
 	
 	# friction
 	velocity *= 0.985 * 56.0 * delta
