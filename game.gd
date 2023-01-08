@@ -20,6 +20,9 @@ var _current_game_state: GameState
 func _ready():
 	pass
 
+func reload_current_scene():
+	SceneSwitcher.goto_scene(SceneSwitcher.current_scene.get_filename())
+
 func switch_to_scene(scene_path: String):
 	SceneSwitcher.goto_scene(scene_path)
 

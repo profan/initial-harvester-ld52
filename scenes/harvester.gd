@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var thresher_shape = get_node("thresher_shape")
+onready var harvester_shape = get_node("harvester_shape")
 onready var sprite = get_node("sprite")
 
 const MOVEMENT_SPEED: float = 16.0
