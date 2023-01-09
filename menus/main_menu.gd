@@ -1,9 +1,9 @@
 extends Control
 
-onready var start_btn = get_node("menu_margin/menu_container/menu_buttons/start_game_btn")
-onready var how_play_btn = get_node("menu_margin/menu_container/menu_buttons/how_play_game_btn")
-onready var options_btn = get_node("menu_margin/menu_container/menu_buttons/options_game_btn")
-onready var quit_btn = get_node("menu_margin/menu_container/menu_buttons/quit_game_btn")
+onready var start_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/start_game_btn")
+onready var how_play_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/how_play_game_btn")
+onready var options_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/options_game_btn")
+onready var quit_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/quit_game_btn")
 
 func _ready():
 	
