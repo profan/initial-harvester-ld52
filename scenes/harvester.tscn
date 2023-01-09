@@ -106,7 +106,7 @@ process_material = ExtResource( 5 )
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-hframes = 3
+hframes = 4
 
 [node name="harvester_exhaust_particles" type="Particles2D" parent="."]
 position = Vector2( -22, 61 )

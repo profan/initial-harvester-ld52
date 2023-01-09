@@ -6,7 +6,15 @@ const WHEAT_TILE_VALUE = 174
 signal on_game_started
 signal on_game_ended
 
+signal on_game_won
+signal on_game_lost
+
 class GameState extends Reference:
+	
+	signal on_game_won
+	signal on_game_lost
+	
+	var _total_crops_to_thresh: int = 0
 	
 	var _current_harvester_health: float = 0.0
 	var _current_ruined_crops: int = 0
@@ -26,20 +34,30 @@ class GameState extends Reference:
 	func seconds_passed() -> float:
 		return _current_game_timer
 	
+	func total_crops_to_thresh() -> int:
+		return _total_crops_to_thresh
+	
 	func crops_threshed() -> int:
 		return _current_threshed_crops
 		
 	func crops_ruined() -> int:
 		return _current_ruined_crops
 	
+	func register_total_crops_to_thresh(crops_to_thresh: int) -> void:
+		_total_crops_to_thresh = crops_to_thresh
+	
 	func register_threshed_crop() -> void:
 		_current_threshed_crops += 1
+		if _current_threshed_crops >= _total_crops_to_thresh:
+			emit_signal("on_game_won")
 		
 	func register_ruined_crop() -> void:
 		_current_ruined_crops += 1
 	
 	func register_harvester_health(new_health: float) -> void:
 		_current_harvester_health = new_health
+		if _current_harvester_health <= 0.0:
+			emit_signal("on_game_lost")
 	
 	func tick(delta) -> void:
 		_current_game_timer += delta
@@ -54,6 +72,12 @@ var _current_game_state: GameState
 func _ready():
 	pass
 
+func _on_game_won():
+	emit_signal("on_game_won")
+
+func _on_game_lost():
+	emit_signal("on_game_lost")
+
 func is_game_started():
 	return _current_game_state != null
 
@@ -65,6 +89,10 @@ func switch_to_scene(scene_path: String):
 
 func current_tile_map() -> TileMap:
 	return _current_game_state.tile_map()
+
+func register_total_crops_to_thresh(crops_to_thresh: int) -> void:
+	if _current_game_state != null:
+		_current_game_state.regist
 
 func register_threshed_crop() -> void:
 	if _current_game_state != null:
@@ -93,6 +121,8 @@ func seconds_passed_since_game_start() -> int:
 
 func start_game(current_tile_map: TileMap):
 	_current_game_state = GameState.new(current_tile_map)
+	_current_game_state.connect("on_game_won", self, "_on_game_won")
+	_current_game_state.connect("on_game_lost", self, "_on_game_lost")
 	emit_signal("on_game_started")
 
 func end_game():

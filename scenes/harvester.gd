@@ -27,6 +27,7 @@ var last_threshed_threshold: float = 0.5
 var last_threshed_timer: float = 0.0
 
 # health
+var is_destroyed: bool = false
 var health: float = STARTING_HEALTH
 
 # physics
@@ -50,6 +51,9 @@ func _ready():
 	else:
 		yield(Game, "on_game_started")
 		Game.register_harvester_health_change(health)
+
+func _on_body_entered(other_body):
+	pass
 
 func _input(event):
 	if event is InputEventKey:
@@ -111,7 +115,42 @@ func _thresh_shit():
 	_thresh_crop(tile_map, t2_tile_pos, t2_tile_value, p2)
 	_thresh_crop(tile_map, t3_tile_pos, t3_tile_value, p3)
 
+func _take_damage_from_collision(damage_to_take: float) -> void:
+	health -= damage_to_take
+	Game.register_harvester_health_change(health)
+
+func _handle_collisions_with_static_bodies():
+	
+	var objects_collided_with = {}
+	
+	for i in get_slide_count():
+		
+		var collision = get_slide_collision(i)
+		
+		var collided_with_thresher = collision.local_shape == thresher_shape
+		var collided_with_body = collision.local_shape == harvester_shape
+		
+		if collision.collider is Rock and objects_collided_with.has(collision.collider) == false:
+			
+			objects_collided_with[collision.collider] = true
+			print("harvester collided with ", collision.collider.name)
+			var damage_taken = collision.collider.on_collided_with()
+			
+			# double damage taken if we hit it with the thresher
+			var actual_damage_taken = damage_taken * 2.0 if collided_with_thresher else damage_taken
+			_take_damage_from_collision(actual_damage_taken)
+
+func _on_harvester_destroyed():
+	is_destroyed = true
+	sprite.frame = 3
+
 func _physics_process(delta):
+	
+	if health <= 0.0 and is_destroyed == false:
+		_on_harvester_destroyed()
+	
+	if is_destroyed:
+		return
 	
 	var movement_speed_multiplier = FAST_MOVEMENT_MULTIPLIER if is_moving_fast else 1.0
 	var movement_delta: Vector2 = Vector2.ZERO
@@ -146,6 +185,9 @@ func _physics_process(delta):
 	
 	var local_velocity_up = velocity.rotated(rotation)
 	move_and_slide(local_velocity_up)
+	
+	# take damage by hitting rocks, etc
+	_handle_collisions_with_static_bodies()
 	
 	# rotation!
 	rotation_degrees += angular_velocity # * min(1.0, (velocity.length() / MOVEMENT_SPEED))

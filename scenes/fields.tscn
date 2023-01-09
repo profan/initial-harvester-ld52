@@ -30,13 +30,13 @@ script = ExtResource( 4 )
 [node name="canvas" type="CanvasLayer" parent="."]
 
 [node name="game_ui" type="Control" parent="canvas"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="margin_container" type="MarginContainer" parent="canvas/game_ui"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
@@ -45,31 +45,43 @@ custom_constants/margin_bottom = 16
 [node name="labels_container" type="VBoxContainer" parent="canvas/game_ui/margin_container"]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 151.0
-margin_bottom = 84.0
+margin_right = 1008.0
+margin_bottom = 584.0
 
 [node name="harvester_health" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_right = 135.0
+margin_right = 992.0
 margin_bottom = 14.0
 text = "HEALTH: 100"
 
 [node name="harvester_crops_harvested" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
 margin_top = 18.0
-margin_right = 135.0
+margin_right = 992.0
 margin_bottom = 32.0
 text = "HARVESTED CROPS: 0"
 
 [node name="harvester_crops_ruined" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
 margin_top = 36.0
-margin_right = 135.0
+margin_right = 992.0
 margin_bottom = 50.0
 text = "RUINED CROPS: 0"
 
 [node name="harvester_time" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
 margin_top = 54.0
-margin_right = 135.0
+margin_right = 992.0
 margin_bottom = 68.0
 text = "TIME: 0s"
+
+[node name="restart_if_you_want" type="Label" parent="canvas/game_ui/margin_container"]
+margin_left = 412.0
+margin_top = 276.0
+margin_right = 612.0
+margin_bottom = 324.0
+size_flags_horizontal = 4
+text = "YOU WRECKED THE HARVESTER!
+
+PRESS R TO RESTART!!"
+align = 1
+valign = 1
 
 [node name="tile_map" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
