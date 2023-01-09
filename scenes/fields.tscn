@@ -89,9 +89,9 @@ valign = 1
 
 [node name="restart_if_you_want" type="Label" parent="canvas/game_ui/margin_container"]
 margin_left = 388.0
-margin_top = 267.0
+margin_top = 270.0
 margin_right = 635.0
-margin_bottom = 333.0
+margin_bottom = 330.0
 rect_pivot_offset = Vector2( 103, 0 )
 size_flags_horizontal = 4
 text = "YOU WRECKED THE HARVESTER!
