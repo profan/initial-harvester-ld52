@@ -11,6 +11,9 @@ const TIME_ATTACK_TIME_LIMIT = 120
 onready var tween = get_node("tween")
 onready var fader = get_node("canvas/fader")
 
+onready var music_player = get_node("music_player")
+onready var sfx_player = get_node("sfx_player")
+
 signal on_fade_completed
 
 signal on_game_started
@@ -120,6 +123,14 @@ const Scenes = {
 	FIELDS = "res://scenes/fields.tscn"
 }
 
+const Sounds = {
+	CLICK = "CLICK"
+}
+
+const Samples = {
+	CLICK = preload("res://raw/sound/menu_click.wav")
+}
+
 var _current_game_state: GameState
 
 func _ready():
@@ -145,6 +156,11 @@ func _on_game_won():
 
 func _on_game_lost():
 	emit_signal("on_game_lost")
+
+func play_sound(sound_name) -> void:
+	var found_sound = Samples[sound_name]
+	sfx_player.stream = found_sound
+	sfx_player.play()
 
 func is_game_started():
 	return _current_game_state != null

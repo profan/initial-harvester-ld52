@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Rock",
 "language": "GDScript",
-"path": "res://rock.gd"
+"path": "res://scenes/rock.gd"
 } ]
 _global_script_class_icons={
 "Fence": "",

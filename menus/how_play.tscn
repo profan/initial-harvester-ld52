@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/main_ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://menus/how_play.gd" type="Script" id=2]
 [ext_resource path="res://raw/tilesetter_tileset_godot/tileset_tilesetter_tileset_godot/tileset_tileset_tilesetter_tileset_godot.tres" type="TileSet" id=3]
 [ext_resource path="res://raw/harvester_big.png" type="Texture" id=4]
+[ext_resource path="res://menus/btn_with_sound.gd" type="Script" id=5]
 
 [node name="how_play_menu" type="Control"]
 anchor_right = 1.0
@@ -85,3 +86,4 @@ margin_right = 211.0
 margin_bottom = 290.0
 text = "> BACK TO MENU"
 flat = true
+script = ExtResource( 5 )

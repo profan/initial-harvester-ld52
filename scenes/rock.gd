@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name Rock
 
+onready var audio_player = get_node("audio_player")
+
 onready var shape = get_node("shape")
 onready var sprite = get_node("sprite")
 onready var particles = get_node("particles")
@@ -40,4 +42,5 @@ func on_collided_with() -> float:
 	sprite.visible = false
 	particles.emitting = true
 	death_timer = time_to_die
+	audio_player.play()
 	return 10.0

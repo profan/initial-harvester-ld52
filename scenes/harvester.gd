@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 const STARTING_HEALTH: float = 100.0
 
+onready var audio_player: AudioStreamPlayer2D = get_node("audio_player")
+
 onready var t1: Node2D = get_node("thresher/thresher1")
 onready var t2: Node2D = get_node("thresher/thresher2")
 onready var t3: Node2D = get_node("thresher/thresher3")
@@ -19,6 +21,10 @@ onready var sprite = get_node("sprite")
 const MOVEMENT_SPEED: float = 8.0
 const FAST_MOVEMENT_MULTIPLIER: float = 2.0
 const ROTATION_SPEED: float = 45.0 # degrees per second
+
+# audio shit
+var target_volume = 1.0
+var volume_change_per_second = 0.25
 
 # particle stuff
 onready var initial_p_lifetime = p1.lifetime
@@ -47,6 +53,8 @@ var is_turning_left: bool = false
 var is_turning_right: bool = false
 
 func _ready():
+	
+	audio_player.play()
 	
 	if Game.is_game_started():
 		# register initial health
@@ -160,6 +168,7 @@ func _handle_collisions_with_static_bodies():
 			_take_damage_from_collision(actual_damage_taken)
 
 func _on_harvester_destroyed():
+	audio_player.playing = false
 	is_destroyed = true
 	e1.emitting = false
 	sprite.frame = 3
@@ -231,7 +240,15 @@ func _physics_process(delta):
 	
 	# if we threshin, particles
 	if last_threshed_timer > 0.0:
+		var current_linear_volume = db2linear(audio_player.volume_db)
+		var desired_actual_volume = 0.75 * max(0.5, min(1.0, (velocity.length() / MOVEMENT_SPEED)))
+		audio_player.volume_db = linear2db(desired_actual_volume) # linear2db(lerp(current_linear_volume, desired_actual_volume, 20.0 * delta))
+		# audio_player.volume_db = linear2db(current_actual_volume) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
 		e1.emitting = true
 	else:
+		var current_linear_volume = db2linear(audio_player.volume_db)
+		var desired_actual_volume = 0.5 *  max(0.5, min(1.0, (velocity.length() / MOVEMENT_SPEED)))
+		audio_player.volume_db = linear2db(desired_actual_volume) # linear2db(lerp(current_linear_volume, desired_actual_volume, 10.0 * delta))
+		# audio_player.volume_db = linear2db(current_actual_volume)
 		e1.emitting = false
 	
