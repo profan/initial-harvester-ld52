@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://menus/main_menu.gd" type="Script" id=1]
-[ext_resource path="res://raw/tilesetter_tileset_godot/tileset_tilesetter_tileset_godot/tileset_tileset_tilesetter_tileset_godot.tres" type="TileSet" id=2]
-[ext_resource path="res://ui/main_ui_theme.tres" type="Theme" id=3]
+[ext_resource path="res://ui/main_ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://menus/how_play.gd" type="Script" id=2]
+[ext_resource path="res://raw/tilesetter_tileset_godot/tileset_tilesetter_tileset_godot/tileset_tileset_tilesetter_tileset_godot.tres" type="TileSet" id=3]
 
-[node name="main_menu" type="Control"]
+[node name="how_play_menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 3 )
-script = ExtResource( 1 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="tile_map" type="TileMap" parent="."]
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 3 )
 format = 1
 tile_data = PoolIntArray( -65536, 174, 917513, -65535, 174, 917514, -65534, 174, 917514, -65533, 174, 917514, -65532, 174, 917514, -65531, 174, 917515, -65530, 172, 196619, -65529, 172, 196620, -65528, 172, 196620, -65527, 172, 196621, -65526, 174, 917513, -65525, 174, 917514, -65524, 174, 917514, -65523, 174, 917514, -65522, 174, 917514, -65521, 174, 917515, 0, 174, 983049, 1, 174, 655370, 2, 174, 655370, 3, 174, 655370, 4, 174, 655370, 5, 174, 983051, 6, 172, 262155, 7, 172, 655368, 8, 172, 655368, 9, 172, 262157, 10, 174, 983049, 11, 174, 655370, 12, 174, 655370, 13, 174, 655370, 14, 174, 655370, 15, 174, 983051, 65536, 174, 983049, 65537, 174, 655370, 65538, 174, 655370, 65539, 174, 655370, 65540, 174, 655370, 65541, 174, 983051, 65542, 172, 262155, 65543, 172, 655368, 65544, 172, 655368, 65545, 172, 262157, 65546, 174, 983049, 65547, 174, 655370, 65548, 174, 655370, 65549, 174, 655370, 65550, 174, 655370, 65551, 174, 983051, 131072, 174, 983049, 131073, 174, 655370, 131074, 174, 655370, 131075, 174, 655370, 131076, 174, 655370, 131077, 174, 983051, 131078, 172, 262155, 131079, 172, 655368, 131080, 172, 655368, 131081, 172, 262157, 131082, 174, 983049, 131083, 174, 655370, 131084, 174, 655370, 131085, 174, 655370, 131086, 174, 655370, 131087, 174, 983051, 196608, 174, 983049, 196609, 174, 655370, 196610, 174, 655370, 196611, 174, 655370, 196612, 174, 655370, 196613, 174, 983051, 196614, 172, 262155, 196615, 172, 655368, 196616, 172, 655368, 196617, 172, 262157, 196618, 174, 983049, 196619, 174, 655370, 196620, 174, 655370, 196621, 174, 655370, 196622, 174, 655370, 196623, 174, 983051, 262144, 174, 983049, 262145, 174, 655370, 262146, 174, 655370, 262147, 174, 655370, 262148, 174, 655370, 262149, 174, 983051, 262150, 172, 262155, 262151, 172, 655368, 262152, 172, 655368, 262153, 172, 262157, 262154, 174, 983049, 262155, 174, 655370, 262156, 174, 655370, 262157, 174, 655370, 262158, 174, 655370, 262159, 174, 983051, 327680, 174, 983049, 327681, 174, 655370, 327682, 174, 655370, 327683, 174, 655370, 327684, 174, 655370, 327685, 174, 983051, 327686, 172, 262155, 327687, 172, 655368, 327688, 172, 655368, 327689, 172, 262157, 327690, 174, 983049, 327691, 174, 655370, 327692, 174, 655370, 327693, 174, 655370, 327694, 174, 655370, 327695, 174, 983051, 393216, 174, 983049, 393217, 174, 655370, 393218, 174, 655370, 393219, 174, 655370, 393220, 174, 655370, 393221, 174, 983051, 393222, 172, 262155, 393223, 172, 655368, 393224, 172, 655368, 393225, 172, 262157, 393226, 174, 983049, 393227, 174, 655370, 393228, 174, 655370, 393229, 174, 655370, 393230, 174, 655370, 393231, 174, 983051, 458752, 174, 983049, 458753, 174, 655370, 458754, 174, 655370, 458755, 174, 655370, 458756, 174, 655370, 458757, 174, 983051, 458758, 172, 262155, 458759, 172, 655368, 458760, 172, 655368, 458761, 172, 262157, 458762, 174, 983049, 458763, 174, 655370, 458764, 174, 655370, 458765, 174, 655370, 458766, 174, 655370, 458767, 174, 983051, 524288, 174, 983049, 524289, 174, 655370, 524290, 174, 655370, 524291, 174, 655370, 524292, 174, 655370, 524293, 174, 983051, 524294, 172, 262155, 524295, 172, 655368, 524296, 172, 655368, 524297, 172, 262157, 524298, 174, 983049, 524299, 174, 655370, 524300, 174, 655370, 524301, 174, 655370, 524302, 174, 655370, 524303, 174, 983051, 589824, 174, 1048585, 589825, 174, 1048586, 589826, 174, 1048586, 589827, 174, 1048586, 589828, 174, 1048586, 589829, 174, 1048587, 589830, 172, 327691, 589831, 172, 327692, 589832, 172, 327692, 589833, 172, 327693, 589834, 174, 1048585, 589835, 174, 1048586, 589836, 174, 1048586, 589837, 174, 1048586, 589838, 174, 1048586, 589839, 174, 1048587 )
 
@@ -24,58 +24,55 @@ custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
 [node name="menu_container" type="VBoxContainer" parent="menu_margin"]
-margin_left = 457.0
-margin_top = 233.0
-margin_right = 566.0
-margin_bottom = 367.0
+margin_left = 406.0
+margin_top = 131.0
+margin_right = 617.0
+margin_bottom = 469.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="menu_game_title" type="Label" parent="menu_margin/menu_container"]
-margin_left = 13.0
-margin_right = 96.0
+margin_left = 64.0
+margin_right = 147.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
 text = "THRESHER"
 align = 1
 
 [node name="menu_game_title_spacer" type="Label" parent="menu_margin/menu_container"]
-margin_left = 54.0
+margin_left = 105.0
 margin_top = 24.0
-margin_right = 54.0
+margin_right = 105.0
 margin_bottom = 44.0
 size_flags_horizontal = 4
 align = 1
 
 [node name="menu_buttons" type="VBoxContainer" parent="menu_margin/menu_container"]
 margin_top = 48.0
-margin_right = 109.0
-margin_bottom = 134.0
+margin_right = 211.0
+margin_bottom = 338.0
 
-[node name="start_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
-margin_right = 109.0
-margin_bottom = 26.0
-text = "START GAME"
-flat = true
+[node name="how_move_instructions" type="Label" parent="menu_margin/menu_container/menu_buttons"]
+margin_right = 211.0
+margin_bottom = 260.0
+text = "KEY BINDINGS
+----------------------------------
+| MOVEMENT |
+W/UP KEY - FORWARD
+S/DOWN KEY - BACKWARD
+A/LEFT KEY - TURN LEFT
+D/RIGHT KEY - TURN RIGHT
+SHIFT - DOUBLE SPEED
 
-[node name="how_play_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
-margin_top = 30.0
-margin_right = 109.0
-margin_bottom = 56.0
-text = "HOW PLAY"
-flat = true
+| MISC |
+R - RESTART
+ESC - BACK TO MENU
+----------------------------------"
+align = 1
 
-[node name="options_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
-visible = false
-margin_top = 60.0
-margin_right = 109.0
-margin_bottom = 86.0
-text = "OPTIONS"
-flat = true
-
-[node name="quit_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
-margin_top = 60.0
-margin_right = 109.0
-margin_bottom = 86.0
-text = "QUIT"
+[node name="back_to_menu_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
+margin_top = 264.0
+margin_right = 211.0
+margin_bottom = 290.0
+text = "> BACK TO MENU"
 flat = true

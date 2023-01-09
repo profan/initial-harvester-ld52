@@ -1,8 +1,17 @@
 extends Node
 
+# ui
+const FADE_TIME = 0.75
+
+# game
 const DIRT_TILE_VALUE = 6
 const WHEAT_TILE_VALUE = 174
 const TIME_ATTACK_TIME_LIMIT = 200
+
+onready var tween = get_node("tween")
+onready var fader = get_node("canvas/fader")
+
+signal on_fade_completed
 
 signal on_game_started
 signal on_game_ended
@@ -102,13 +111,29 @@ class GameState extends Reference:
 
 const Scenes = {
 	MAIN_MENU = "res://menus/main_menu.tscn",
+	HOW_MENU = "res://menus/how_play.tscn",
 	FIELDS = "res://scenes/fields.tscn"
 }
 
 var _current_game_state: GameState
 
 func _ready():
+	# fader.color.a = 0.75
 	pass
+
+func _fade_in():
+	tween.interpolate_property(fader, "color:a", fader.color.a, 0.0, FADE_TIME, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	tween.start()
+	
+	yield(tween, "tween_all_completed")
+	emit_signal("on_fade_completed")
+
+func _fade_out():
+	tween.interpolate_property(fader, "color:a", fader.color.a, 1.0, FADE_TIME, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	tween.start()
+	
+	yield(tween, "tween_all_completed")
+	emit_signal("on_fade_completed")
 
 func _on_game_won():
 	emit_signal("on_game_won")
@@ -120,10 +145,13 @@ func is_game_started():
 	return _current_game_state != null
 
 func reload_current_scene():
-	SceneSwitcher.goto_scene(SceneSwitcher.current_scene.get_filename())
+	switch_to_scene(SceneSwitcher.current_scene.get_filename())
 
 func switch_to_scene(scene_path: String):
+	_fade_out()
+	yield(self, "on_fade_completed")
 	SceneSwitcher.goto_scene(scene_path)
+	_fade_in()
 
 func current_tile_map() -> TileMap:
 	return _current_game_state.tile_map()

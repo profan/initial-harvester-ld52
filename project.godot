@@ -27,7 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SceneSwitcher="*res://scene_switcher.gd"
-Game="*res://game.gd"
+Game="*res://game.tscn"
 
 [gui]
 

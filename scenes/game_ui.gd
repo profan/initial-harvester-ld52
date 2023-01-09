@@ -49,6 +49,10 @@ func _on_game_lost():
 	tween.start()
 
 func _process(delta):
+	
+	if Game.is_game_started() == false:
+		return
+	
 	harvester_hp.text = "HEALTH: %s" % Game.harvester_health()
 	
 	if Game.current_game_mode() == Game.GameMode.TimeAttack:
