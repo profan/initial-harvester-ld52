@@ -7,11 +7,13 @@ onready var harvester_time = get_node("margin_container/labels_container/harvest
 onready var harvester_crops_harvested = get_node("margin_container/labels_container/harvester_crops_harvested")
 onready var harvester_crops_ruined = get_node("margin_container/labels_container/harvester_crops_ruined")
 
+onready var win_label = get_node("margin_container/you_have_won")
 onready var restart_label = get_node("margin_container/restart_if_you_want")
 
 func _ready():
 	
 	# not visible initially :)
+	win_label.visible = false
 	restart_label.visible = false
 	
 	# signals
@@ -24,10 +26,21 @@ func _input(event):
 			Game.end_game()
 
 func _on_game_won():
+	
+	var crops_threshed_per_second = Game.threshed_crops() / Game.seconds_passed_since_game_start()
+	
+	if Game.current_game_mode() == Game.GameMode.TimeAttack:
+		win_label.text = "[TIME ATTACK] YOU THRESHED: %s CROPS IN %s SECONDS! (%s CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
+		
+	elif Game.current_game_mode() == Game.GameMode.ThreshEmAll:
+		win_label.text = "[THRESH EM ALL] YOU WON, THRESHING: %s CROPS IN %s SECONDS! (%s CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
+	
+	win_label.visible = true
 	restart_label.visible = false
 
 func _on_game_lost():
 	
+	win_label.visible = false
 	restart_label.visible = true
 	
 	# tween the restart labels rotation
@@ -39,4 +52,4 @@ func _process(delta):
 	harvester_hp.text = "HEALTH: %s" % Game.harvester_health()
 	harvester_time.text = "TIME: %ss" % Game.seconds_passed_since_game_start()
 	harvester_crops_harvested.text = "HARVESTED CROPS: %s" % Game.threshed_crops()
-	harvester_crops_ruined.text = "RUINED CROPS: %s" % Game.ruined_crops()
+	# harvester_crops_ruined.text = "RUINED CROPS: %s" % Game.ruined_crops()

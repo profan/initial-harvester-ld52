@@ -64,21 +64,33 @@ margin_bottom = 44.0
 text = "HARVESTED CROPS: 0"
 
 [node name="harvester_crops_ruined" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
+visible = false
 margin_top = 48.0
 margin_right = 992.0
 margin_bottom = 68.0
 text = "RUINED CROPS: 0"
 
 [node name="harvester_time" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_top = 72.0
+margin_top = 48.0
 margin_right = 992.0
-margin_bottom = 92.0
+margin_bottom = 68.0
 text = "TIME: 0s"
 
+[node name="you_have_won" type="Label" parent="canvas/game_ui/margin_container"]
+margin_left = 473.0
+margin_top = 290.0
+margin_right = 551.0
+margin_bottom = 310.0
+rect_pivot_offset = Vector2( 103, 0 )
+size_flags_horizontal = 4
+text = "YOU WON!"
+align = 1
+valign = 1
+
 [node name="restart_if_you_want" type="Label" parent="canvas/game_ui/margin_container"]
-margin_left = 387.0
+margin_left = 388.0
 margin_top = 267.0
-margin_right = 636.0
+margin_right = 635.0
 margin_bottom = 333.0
 rect_pivot_offset = Vector2( 103, 0 )
 size_flags_horizontal = 4

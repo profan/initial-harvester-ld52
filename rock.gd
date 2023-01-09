@@ -20,8 +20,14 @@ func _turn_current_tile_to_dirt():
 	var current_tile_position = tilemap.world_to_map(tilemap.to_local(global_position))
 	
 	# update position and update bitmask too
+	var current_tile_value = tilemap.get_cellv(current_tile_position)
 	tilemap.set_cellv(current_tile_position, Game.DIRT_TILE_VALUE)
 	tilemap.update_bitmask_area(current_tile_position)
+	
+	# register them as threshed too? :D
+	if current_tile_value == Game.WHEAT_TILE_VALUE:
+		# Game.register_total_crops_to_thresh(Game.total_crops_to_thresh() - 1)
+		pass
 
 func _physics_process(delta):
 	death_timer -= delta
