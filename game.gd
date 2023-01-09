@@ -126,8 +126,9 @@ func start_game(current_tile_map: TileMap):
 	emit_signal("on_game_started")
 
 func end_game():
-	_current_game_state = null
 	emit_signal("on_game_ended")
+	_current_game_state = null
+	Game.switch_to_scene(Game.Scenes.MAIN_MENU)
 
 func _process(delta):
 	

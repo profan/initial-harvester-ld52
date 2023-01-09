@@ -56,7 +56,7 @@ func _on_body_entered(other_body):
 	pass
 
 func _input(event):
-	if event is InputEventKey:
+	if event is InputEvent:
 		
 		if event.is_action_pressed("move_forwards"):
 			is_moving_forwards = true
@@ -146,6 +146,9 @@ func _on_harvester_destroyed():
 	sprite.frame = 3
 
 func _physics_process(delta):
+	
+	if Game.is_game_started() == false:
+		return
 	
 	if health <= 0.0 and is_destroyed == false:
 		_on_harvester_destroyed()

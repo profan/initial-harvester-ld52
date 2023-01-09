@@ -18,6 +18,11 @@ func _ready():
 	Game.connect("on_game_won", self, "_on_game_won")
 	Game.connect("on_game_lost", self, "_on_game_lost")
 
+func _input(event):
+	if event is InputEvent:
+		if event.is_action_pressed("ui_cancel"):
+			Game.end_game()
+
 func _on_game_won():
 	restart_label.visible = false
 
