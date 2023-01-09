@@ -13,6 +13,9 @@ func _ready():
 	options_btn.connect("pressed", self, "_on_options_btn_pressed")
 	quit_btn.connect("pressed", self, "_on_quit_btn_pressed")
 	
+	if Game.is_web_build():
+		quit_btn.visible = false
+	
 	# set focus on start game button
 	start_btn.grab_focus()
 

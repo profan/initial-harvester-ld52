@@ -167,6 +167,9 @@ func _on_game_won():
 func _on_game_lost():
 	emit_signal("on_game_lost")
 
+func is_web_build() -> bool:
+	return OS.get_name() == "HTML5"
+
 func get_master_volume() -> float:
 	var master_volume_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 	return db2linear(master_volume_db)
