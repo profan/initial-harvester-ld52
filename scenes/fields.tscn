@@ -63,6 +63,12 @@ margin_right = 992.0
 margin_bottom = 44.0
 text = "HARVESTED CROPS: 0"
 
+[node name="harvester_threshing_velocity" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
+margin_top = 48.0
+margin_right = 992.0
+margin_bottom = 68.0
+text = "THRESHING VELOCITY: 0 CROPS/s"
+
 [node name="harvester_crops_ruined" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
 visible = false
 margin_top = 48.0
@@ -71,9 +77,9 @@ margin_bottom = 68.0
 text = "RUINED CROPS: 0"
 
 [node name="harvester_time" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_top = 48.0
+margin_top = 72.0
 margin_right = 992.0
-margin_bottom = 68.0
+margin_bottom = 92.0
 text = "TIME: 0s"
 
 [node name="you_have_won" type="Label" parent="canvas/game_ui/margin_container"]

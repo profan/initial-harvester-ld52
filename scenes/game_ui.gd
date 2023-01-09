@@ -7,6 +7,7 @@ onready var tween: Tween = get_node("tween")
 onready var harvester_hp = get_node("margin_container/labels_container/harvester_health")
 onready var harvester_time = get_node("margin_container/labels_container/harvester_time")
 onready var harvester_crops_harvested = get_node("margin_container/labels_container/harvester_crops_harvested")
+onready var harvester_threshing_velocity = get_node("margin_container/labels_container/harvester_threshing_velocity")
 onready var harvester_crops_ruined = get_node("margin_container/labels_container/harvester_crops_ruined")
 
 onready var hint1 = get_node("margin_container/hints/hint1")
@@ -106,6 +107,9 @@ func _process(delta):
 	if Game.is_game_started() == false:
 		return
 	
+	var seconds_since_game_start = Game.seconds_passed_since_game_start()
+	var crops_threshed_per_second = float(Game.threshed_crops()) / float(seconds_since_game_start) if seconds_since_game_start > 0 else 0.0
+	
 	harvester_hp.text = "HEALTH: %s" % Game.harvester_health()
 	
 	if Game.current_game_mode() == Game.GameMode.TimeAttack:
@@ -115,4 +119,5 @@ func _process(delta):
 		harvester_time.text = "TIME: %ss" % Game.seconds_passed_since_game_start()
 		
 	harvester_crops_harvested.text = "HARVESTED CROPS: %s" % Game.threshed_crops()
+	harvester_threshing_velocity.text = "THRESHING VELOCITY: %.2f CROPS/s" % crops_threshed_per_second
 	# harvester_crops_ruined.text = "RUINED CROPS: %s" % Game.ruined_crops()
