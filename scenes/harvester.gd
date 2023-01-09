@@ -132,6 +132,11 @@ func _take_damage_from_collision(damage_to_take: float) -> void:
 	health -= damage_to_take
 	Game.register_harvester_health_change(health)
 
+func _apply_angular_velocity_from_collision(other_object_position: Vector2) -> void:
+	var local_velocity_up = velocity.rotated(rotation)
+	var angle_to_position = other_object_position.angle_to(local_velocity_up)
+	angular_velocity += angle_to_position * 4.0
+
 func _handle_collisions_with_static_bodies():
 	
 	var objects_collided_with = {}
@@ -151,6 +156,7 @@ func _handle_collisions_with_static_bodies():
 			
 			# double damage taken if we hit it with the thresher
 			var actual_damage_taken = damage_taken * 2.0 if collided_with_thresher else damage_taken
+			_apply_angular_velocity_from_collision(collision.collider.global_position)
 			_take_damage_from_collision(actual_damage_taken)
 
 func _on_harvester_destroyed():
@@ -166,39 +172,41 @@ func _physics_process(delta):
 	if health <= 0.0 and is_destroyed == false:
 		_on_harvester_destroyed()
 	
-	if is_destroyed:
-		return
-	
+	var should_handle_input = is_destroyed == false
 	var movement_speed_multiplier = FAST_MOVEMENT_MULTIPLIER if is_moving_fast else 1.0
 	var movement_delta: Vector2 = Vector2.ZERO
 	var rotation_delta: float = 0.0
-	
-	if is_moving_forwards:
-		movement_delta += Vector2.UP
-	
-	if is_moving_backwards:
-		movement_delta -= Vector2.UP
 
-	if is_moving_forwards or is_moving_backwards:
+	if should_handle_input:
+
+		if is_moving_forwards:
+			movement_delta += Vector2.UP
 		
-		if is_turning_left:
-			rotation_delta -= deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
-		
-		if is_turning_right:
-			rotation_delta += deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
+		if is_moving_backwards:
+			movement_delta -= Vector2.UP
+
+		if is_moving_forwards or is_moving_backwards:
+			
+			if is_turning_left:
+				rotation_delta -= deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
+			
+			if is_turning_right:
+				rotation_delta += deg2rad(ROTATION_SPEED) * min(1.0, (velocity.length() / MOVEMENT_SPEED))
 	
 	velocity += movement_delta * MOVEMENT_SPEED * movement_speed_multiplier
 	angular_velocity += rotation_delta * 0.25
 	
-	if abs(angular_velocity) > 0.5:
+	if should_handle_input:
 		
-		if angular_velocity < 0.0:
-			sprite.frame = 1
-		elif angular_velocity> 0.0:
-			sprite.frame = 2
+		if abs(angular_velocity) > 0.5:
 			
-	else:
-		sprite.frame = 0
+			if angular_velocity < 0.0:
+				sprite.frame = 1
+			elif angular_velocity> 0.0:
+				sprite.frame = 2
+				
+		else:
+			sprite.frame = 0
 	
 	var local_velocity_up = velocity.rotated(rotation)
 	move_and_slide(local_velocity_up)
