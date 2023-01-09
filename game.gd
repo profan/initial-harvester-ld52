@@ -1,7 +1,14 @@
 extends Node
 
+const DIRT_TILE_VALUE = 6
+const WHEAT_TILE_VALUE = 174
+
+signal on_game_started
+signal on_game_ended
+
 class GameState extends Reference:
 	
+	var _current_harvester_health: float = 0.0
 	var _current_ruined_crops: int = 0
 	var _current_threshed_crops: int = 0
 	var _current_game_timer: float = 0.0
@@ -10,6 +17,9 @@ class GameState extends Reference:
 	func _init(tile_map: TileMap):
 		_current_tile_map = tile_map
 	
+	func harvester_health() -> float:
+		return _current_harvester_health
+
 	func tile_map() -> TileMap:
 		return _current_tile_map
 	
@@ -28,6 +38,9 @@ class GameState extends Reference:
 	func register_ruined_crop() -> void:
 		_current_ruined_crops += 1
 	
+	func register_harvester_health(new_health: float) -> void:
+		_current_harvester_health = new_health
+	
 	func tick(delta) -> void:
 		_current_game_timer += delta
 
@@ -40,6 +53,9 @@ var _current_game_state: GameState
 
 func _ready():
 	pass
+
+func is_game_started():
+	return _current_game_state != null
 
 func reload_current_scene():
 	SceneSwitcher.goto_scene(SceneSwitcher.current_scene.get_filename())
@@ -58,6 +74,13 @@ func register_ruined_crop() -> void:
 	if _current_game_state != null:
 		_current_game_state.register_ruined_crop()
 
+func register_harvester_health_change(new_health: float) -> void:
+	if _current_game_state != null:
+		_current_game_state.register_harvester_health(new_health)
+
+func harvester_health() -> float:
+	return _current_game_state.harvester_health()
+
 func threshed_crops() -> int:
 	return _current_game_state.crops_threshed()
 
@@ -70,9 +93,11 @@ func seconds_passed_since_game_start() -> int:
 
 func start_game(current_tile_map: TileMap):
 	_current_game_state = GameState.new(current_tile_map)
+	emit_signal("on_game_started")
 
 func end_game():
 	_current_game_state = null
+	emit_signal("on_game_ended")
 
 func _process(delta):
 	

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const STARTING_HEALTH: float = 100.0
+
 onready var t1: Node2D = get_node("thresher/thresher1")
 onready var t2: Node2D = get_node("thresher/thresher2")
 onready var t3: Node2D = get_node("thresher/thresher3")
@@ -24,6 +26,9 @@ var last_threshed_threshold: float = 0.5
 # tracking threshing, when did we last thresh?
 var last_threshed_timer: float = 0.0
 
+# health
+var health: float = STARTING_HEALTH
+
 # physics
 var velocity: Vector2 = Vector2.ZERO
 var current_wheel_angle: float = 0.0
@@ -38,7 +43,13 @@ var is_turning_left: bool = false
 var is_turning_right: bool = false
 
 func _ready():
-	pass
+	
+	if Game.is_game_started():
+		# register initial health
+		Game.register_harvester_health_change(health)
+	else:
+		yield(Game, "on_game_started")
+		Game.register_harvester_health_change(health)
 
 func _input(event):
 	if event is InputEventKey:
@@ -70,11 +81,8 @@ func _input(event):
 
 func _thresh_crop(tile_map: TileMap, tile_position: Vector2, tile_value: int, emitter: Particles2D):
 	
-	var DIRT_TILE_VALUE = 6
-	var WHEAT_TILE_VALUE = 174
-	
-	if tile_value == WHEAT_TILE_VALUE:
-		tile_map.set_cellv(tile_position, DIRT_TILE_VALUE)
+	if tile_value == Game.WHEAT_TILE_VALUE:
+		tile_map.set_cellv(tile_position, Game.DIRT_TILE_VALUE)
 		tile_map.update_bitmask_area(tile_position)
 		Game.register_threshed_crop()
 		emitter.emitting = true
