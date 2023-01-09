@@ -143,7 +143,7 @@ func _handle_collisions_with_static_bodies():
 		var collided_with_thresher = collision.local_shape == thresher_shape
 		var collided_with_body = collision.local_shape == harvester_shape
 		
-		if collision.collider is Rock and objects_collided_with.has(collision.collider) == false:
+		if (collision.collider is Rock or collision.collider is Fence) and objects_collided_with.has(collision.collider) == false:
 			
 			objects_collided_with[collision.collider] = true
 			print("harvester collided with ", collision.collider.name)

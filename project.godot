@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "StaticBody2D",
+"class": "Fence",
+"language": "GDScript",
+"path": "res://scenes/fence.gd"
+}, {
+"base": "StaticBody2D",
 "class": "Rock",
 "language": "GDScript",
 "path": "res://rock.gd"
 } ]
 _global_script_class_icons={
+"Fence": "",
 "Rock": ""
 }
 
