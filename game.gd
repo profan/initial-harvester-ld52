@@ -143,7 +143,7 @@ func _ready():
 	var initial_sfx_volume = 1.0
 	
 	# set up sfx/music player volumes appropriately
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), initial_master_volume)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(initial_master_volume))
 	music_player.volume_db = linear2db(initial_music_volume)
 	sfx_player.volume_db = linear2db(initial_sfx_volume)
 

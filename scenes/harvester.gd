@@ -54,6 +54,7 @@ var is_turning_right: bool = false
 
 func _ready():
 	
+	audio_player.volume_db = linear2db(0.0)
 	audio_player.play()
 	
 	if Game.is_game_started():
