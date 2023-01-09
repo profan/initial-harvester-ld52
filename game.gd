@@ -119,6 +119,7 @@ class GameState extends Reference:
 
 const Scenes = {
 	MAIN_MENU = "res://menus/main_menu.tscn",
+	OPTIONS_MENU = "res://menus/options_menu.tscn",
 	HOW_MENU = "res://menus/how_play.tscn",
 	FIELDS = "res://scenes/fields.tscn"
 }
@@ -131,11 +132,20 @@ const Samples = {
 	CLICK = preload("res://raw/sound/menu_click.wav")
 }
 
+# game state
 var _current_game_state: GameState
 
 func _ready():
-	# fader.color.a = 0.75
-	pass
+	
+	# volume shit
+	var initial_master_volume = 0.5
+	var initial_music_volume = 1.0
+	var initial_sfx_volume = 1.0
+	
+	# set up sfx/music player volumes appropriately
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), initial_master_volume)
+	music_player.volume_db = linear2db(initial_music_volume)
+	sfx_player.volume_db = linear2db(initial_sfx_volume)
 
 func _fade_in():
 	tween.interpolate_property(fader, "color:a", fader.color.a, 0.0, FADE_TIME, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
@@ -156,6 +166,25 @@ func _on_game_won():
 
 func _on_game_lost():
 	emit_signal("on_game_lost")
+
+func get_master_volume() -> float:
+	var master_volume_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+	return db2linear(master_volume_db)
+
+func get_sfx_volume() -> float:
+	return db2linear(sfx_player.volume_db)
+
+func get_music_volume() -> float:
+	return db2linear(music_player.volume_db)
+
+func set_master_volume(new_linear_volume: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(new_linear_volume))
+
+func set_sfx_volume(new_linear_volume: float) -> void:
+	sfx_player.volume_db = linear2db(new_linear_volume)
+
+func set_music_volume(new_linear_volume: float) -> void:
+	music_player.volume_db = linear2db(new_linear_volume)
 
 func play_sound(sound_name) -> void:
 	var found_sound = Samples[sound_name]

@@ -20,7 +20,7 @@ func _on_how_play_btn_pressed():
 	Game.switch_to_scene(Game.Scenes.HOW_MENU)
 
 func _on_options_btn_pressed():
-	pass
+	Game.switch_to_scene(Game.Scenes.OPTIONS_MENU)
 
 func _on_quit_btn_pressed():
 	get_tree().quit()
