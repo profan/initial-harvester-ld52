@@ -20,6 +20,9 @@ const MOVEMENT_SPEED: float = 8.0
 const FAST_MOVEMENT_MULTIPLIER: float = 2.0
 const ROTATION_SPEED: float = 45.0 # degrees per second
 
+# particle stuff
+onready var initial_p_lifetime = p1.lifetime
+
 # use this to track if we should be spewing wheat out or not
 var last_threshed_threshold: float = 0.5
 
@@ -54,6 +57,16 @@ func _ready():
 
 func _on_body_entered(other_body):
 	pass
+
+func _update_thresher_emitters():
+	if is_moving_fast:
+		p1.lifetime = initial_p_lifetime / FAST_MOVEMENT_MULTIPLIER
+		p2.lifetime = initial_p_lifetime / FAST_MOVEMENT_MULTIPLIER
+		p3.lifetime = initial_p_lifetime / FAST_MOVEMENT_MULTIPLIER
+	else:
+		p1.lifetime = initial_p_lifetime
+		p2.lifetime = initial_p_lifetime
+		p3.lifetime = initial_p_lifetime
 
 func _input(event):
 	if event is InputEvent:
@@ -199,6 +212,9 @@ func _physics_process(delta):
 	# friction
 	velocity *= 0.985 * 56.0 * delta
 	angular_velocity *= 0.985 * 56.0 * delta
+	
+	# update thresher emitter state
+	_update_thresher_emitters()
 	
 	# every tick, thresh
 	_thresh_shit()
