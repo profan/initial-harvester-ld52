@@ -20,6 +20,9 @@ func _ready():
 	
 	# back to menu etc
 	back_to_menu_btn.connect("pressed", self, "_on_back_to_menu_pressed")
+	
+	# focus on back button?
+	back_to_menu_btn.grab_focus()
 
 func _on_master_volume_slider_value_changed(new_value):
 	Game.set_master_volume(new_value)

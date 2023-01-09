@@ -12,6 +12,9 @@ func _ready():
 	how_play_btn.connect("pressed", self, "_on_how_play_btn_pressed")
 	options_btn.connect("pressed", self, "_on_options_btn_pressed")
 	quit_btn.connect("pressed", self, "_on_quit_btn_pressed")
+	
+	# set focus on start game button
+	start_btn.grab_focus()
 
 func _on_start_btn_pressed():
 	Game.switch_to_scene(Game.Scenes.FIELDS)

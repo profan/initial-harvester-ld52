@@ -3,7 +3,12 @@ extends Control
 onready var back_to_menu_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/back_to_menu_btn")
 
 func _ready():
+	
+	# back to menu
 	back_to_menu_btn.connect("pressed", self, "_on_back_to_menu_pressed")
+	
+	# focus
+	back_to_menu_btn.grab_focus()
 
 func _on_back_to_menu_pressed():
 	Game.switch_to_scene(Game.Scenes.MAIN_MENU)
