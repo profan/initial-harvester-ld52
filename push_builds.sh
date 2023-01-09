@@ -13,7 +13,7 @@ VERSION="1.0.0"
 USE_DEBUG_BUILDS=false
 
 # set if we want to actually push to butler
-PUSH_TO_BUTLER=false
+PUSH_TO_BUTLER=true
 
 # make the DIRS
 mkdir -p $BUILD_DIR/ih_win64/

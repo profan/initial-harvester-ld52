@@ -40,9 +40,9 @@ custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
 [node name="menu_container" type="VBoxContainer" parent="canvas/menu_margin"]
-margin_left = 437.0
+margin_left = 245.0
 margin_top = 172.0
-margin_right = 586.0
+margin_right = 394.0
 margin_bottom = 424.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
