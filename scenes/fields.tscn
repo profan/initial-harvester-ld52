@@ -141,7 +141,7 @@ valign = 1
 
 [node name="tile_map" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
-cell_quadrant_size = 32
+cell_quadrant_size = 64
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 show_collision = true
 format = 1

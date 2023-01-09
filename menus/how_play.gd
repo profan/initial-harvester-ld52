@@ -1,6 +1,6 @@
 extends Control
 
-onready var back_to_menu_btn = get_node("menu_margin/menu_container/menu_buttons/back_to_menu_btn")
+onready var back_to_menu_btn = get_node("canvas/menu_margin/menu_container/menu_buttons/back_to_menu_btn")
 
 func _ready():
 	back_to_menu_btn.connect("pressed", self, "_on_back_to_menu_pressed")
