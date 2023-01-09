@@ -208,12 +208,16 @@ func _physics_process(delta):
 	
 	if should_handle_input:
 		
-		if abs(angular_velocity) > 0.5:
-			
-			if angular_velocity < 0.0:
-				sprite.frame = 1
-			elif angular_velocity> 0.0:
-				sprite.frame = 2
+		if is_turning_left:
+			sprite.frame = 1
+		elif is_turning_right:
+			sprite.frame = 2
+		
+		#if abs(angular_velocity) > 0.5:
+			# if angular_velocity < 0.0:
+			# 	sprite.frame = 1
+			#elif angular_velocity > 0.0:
+			#	sprite.frame = 2
 				
 		else:
 			sprite.frame = 0
