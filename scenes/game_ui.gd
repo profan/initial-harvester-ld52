@@ -48,6 +48,7 @@ func _display_hints_on_game_start():
 	
 	hint1.text = "YOU'VE GOT %s SECONDS UNTIL ALL YOUR CROPS GO BAD!" % [Game.seconds_left_until_game_over()]
 	yield(tween, "tween_all_completed")
+	hint1.visible = false
 	
 	hint2.visible = true
 	hint2.modulate.a = 0.0
@@ -58,6 +59,7 @@ func _display_hints_on_game_start():
 	
 	hint2.text = "... AND REMEMBER, ROCKS ARE NO GOOD FOR YOUR MACHINE!"
 	yield(tween, "tween_all_completed")
+	hint2.visible = false
 	
 	hint3.visible = true
 	hint3.modulate.a = 0.0
@@ -68,6 +70,7 @@ func _display_hints_on_game_start():
 
 	hint3.text = "GOOD LUCK, AND MAINTAIN THRESHING VELOCITY"
 	yield(tween, "tween_all_completed")
+	hint3.visible = false
 	
 
 func _input(event):
@@ -77,7 +80,7 @@ func _input(event):
 
 func _on_game_won():
 	
-	var crops_threshed_per_second = Game.threshed_crops() / Game.seconds_passed_since_game_start()
+	var crops_threshed_per_second = float(Game.threshed_crops()) / float(Game.seconds_passed_since_game_start())
 	
 	if Game.current_game_mode() == Game.GameMode.TimeAttack:
 		win_label.text = "YOU HARVESTED: %s CROPS IN %s SECONDS! (%s CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]

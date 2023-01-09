@@ -6,7 +6,7 @@ const FADE_TIME = 0.75
 # game
 const DIRT_TILE_VALUE = 6
 const WHEAT_TILE_VALUE = 174
-const TIME_ATTACK_TIME_LIMIT = 200
+const TIME_ATTACK_TIME_LIMIT = 120
 
 onready var tween = get_node("tween")
 onready var fader = get_node("canvas/fader")
@@ -81,17 +81,9 @@ class GameState extends Reference:
 	
 	func register_threshed_crop() -> void:
 		_current_threshed_crops += 1
-		
-		if _game_mode == Game.GameMode.TimeAttack:
-			if _current_game_timer >= _time_attack_time_limit and is_game_over() == false:
-				_was_game_won = true
-				emit_signal("on_game_won")
-			
-		elif _game_mode == Game.GameMode.ThreshEmAll:
-			if _current_threshed_crops >= _total_crops_to_thresh and is_game_over() == false:
-				_was_game_won = true
-				emit_signal("on_game_won")
-		
+		_check_if_time_attack_won()
+		_check_if_thresh_em_all_won()
+	
 	func register_ruined_crop() -> void:
 		_current_ruined_crops += 1
 	
@@ -101,11 +93,25 @@ class GameState extends Reference:
 			_was_game_lost = true
 			emit_signal("on_game_lost")
 	
+	func _check_if_time_attack_won():
+		if _game_mode == Game.GameMode.TimeAttack:
+			if _current_game_timer >= _time_attack_time_limit and is_game_over() == false:
+				_was_game_won = true
+				emit_signal("on_game_won")
+	
+	func _check_if_thresh_em_all_won():
+		if _game_mode == Game.GameMode.ThreshEmAll:
+			if _current_threshed_crops >= _total_crops_to_thresh and is_game_over() == false:
+				_was_game_won = true
+				emit_signal("on_game_won")
+	
 	func tick(delta) -> void:
 		
 		# return early if game was lost, not ticking game anymore
 		if _was_game_won or _was_game_lost:
 			return
+			
+		_check_if_time_attack_won()
 		
 		_current_game_timer += delta
 
