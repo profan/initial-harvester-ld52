@@ -14,6 +14,8 @@ class GameState extends Reference:
 	signal on_game_won
 	signal on_game_lost
 	
+	var _was_game_won: bool = false
+	var _was_game_lost: bool = false
 	var _total_crops_to_thresh: int = 0
 	
 	var _current_harvester_health: float = 0.0
@@ -49,6 +51,7 @@ class GameState extends Reference:
 	func register_threshed_crop() -> void:
 		_current_threshed_crops += 1
 		if _current_threshed_crops >= _total_crops_to_thresh:
+			_was_game_won = true
 			emit_signal("on_game_won")
 		
 	func register_ruined_crop() -> void:
@@ -57,9 +60,15 @@ class GameState extends Reference:
 	func register_harvester_health(new_health: float) -> void:
 		_current_harvester_health = new_health
 		if _current_harvester_health <= 0.0:
+			_was_game_lost = true
 			emit_signal("on_game_lost")
 	
 	func tick(delta) -> void:
+		
+		# return early if game was lost, not ticking game anymore
+		if _was_game_lost:
+			return
+		
 		_current_game_timer += delta
 
 const Scenes = {

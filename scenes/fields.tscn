@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://raw/tilesetter_tileset_godot/tileset_tilesetter_tileset_godot/tileset_tileset_tilesetter_tileset_godot.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/harvester.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/game_ui.gd" type="Script" id=3]
 [ext_resource path="res://scenes/fields.gd" type="Script" id=4]
 [ext_resource path="res://rock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/main_ui_theme.tres" type="Theme" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 96 )
@@ -32,6 +33,7 @@ script = ExtResource( 4 )
 [node name="game_ui" type="Control" parent="canvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 6 )
 script = ExtResource( 3 )
 
 [node name="tween" type="Tween" parent="canvas/game_ui"]
@@ -52,32 +54,32 @@ margin_bottom = 584.0
 
 [node name="harvester_health" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
 margin_right = 992.0
-margin_bottom = 14.0
+margin_bottom = 20.0
 text = "HEALTH: 100"
 
 [node name="harvester_crops_harvested" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_top = 18.0
+margin_top = 24.0
 margin_right = 992.0
-margin_bottom = 32.0
+margin_bottom = 44.0
 text = "HARVESTED CROPS: 0"
 
 [node name="harvester_crops_ruined" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_top = 36.0
+margin_top = 48.0
 margin_right = 992.0
-margin_bottom = 50.0
+margin_bottom = 68.0
 text = "RUINED CROPS: 0"
 
 [node name="harvester_time" type="Label" parent="canvas/game_ui/margin_container/labels_container"]
-margin_top = 54.0
+margin_top = 72.0
 margin_right = 992.0
-margin_bottom = 68.0
+margin_bottom = 92.0
 text = "TIME: 0s"
 
 [node name="restart_if_you_want" type="Label" parent="canvas/game_ui/margin_container"]
-margin_left = 412.0
-margin_top = 276.0
-margin_right = 612.0
-margin_bottom = 324.0
+margin_left = 387.0
+margin_top = 267.0
+margin_right = 636.0
+margin_bottom = 333.0
 rect_pivot_offset = Vector2( 103, 0 )
 size_flags_horizontal = 4
 text = "YOU WRECKED THE HARVESTER!
