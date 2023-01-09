@@ -84,10 +84,10 @@ func _on_game_won():
 	var crops_threshed_per_second = float(Game.threshed_crops()) / float(Game.seconds_passed_since_game_start())
 	
 	if Game.current_game_mode() == Game.GameMode.TimeAttack:
-		win_label.text = "YOU HARVESTED: %s CROPS IN %s SECONDS! (%s CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
+		win_label.text = "YOU HARVESTED: %s CROPS IN %s SECONDS! (%.2f CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
 		
 	elif Game.current_game_mode() == Game.GameMode.ThreshEmAll:
-		win_label.text = "YOU WON, HARVESTING: %s CROPS IN %s SECONDS! (%s CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
+		win_label.text = "YOU WON, HARVESTING: %s CROPS IN %s SECONDS! (%.2f CROPS/s)" % [Game.threshed_crops(), Game.seconds_passed_since_game_start(), crops_threshed_per_second]
 	
 	win_label.visible = true
 	restart_label.visible = false

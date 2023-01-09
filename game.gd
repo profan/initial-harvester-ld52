@@ -29,7 +29,7 @@ class GameState extends Reference:
 	signal on_game_won
 	signal on_game_lost
 	
-	var _game_mode = Game.GameMode.TimeAttack
+	var _game_mode = GameMode.TimeAttack
 	
 	# win states
 	var _was_game_won: bool = false
@@ -93,14 +93,14 @@ class GameState extends Reference:
 			_was_game_lost = true
 			emit_signal("on_game_lost")
 	
-	func _check_if_time_attack_won():
-		if _game_mode == Game.GameMode.TimeAttack:
+	func _check_if_time_attack_won() -> void:
+		if _game_mode == GameMode.TimeAttack:
 			if _current_game_timer >= _time_attack_time_limit and is_game_over() == false:
 				_was_game_won = true
 				emit_signal("on_game_won")
 	
-	func _check_if_thresh_em_all_won():
-		if _game_mode == Game.GameMode.ThreshEmAll:
+	func _check_if_thresh_em_all_won() -> void:
+		if _game_mode == GameMode.ThreshEmAll:
 			if _current_threshed_crops >= _total_crops_to_thresh and is_game_over() == false:
 				_was_game_won = true
 				emit_signal("on_game_won")
@@ -112,7 +112,6 @@ class GameState extends Reference:
 			return
 			
 		_check_if_time_attack_won()
-		
 		_current_game_timer += delta
 
 const Scenes = {
