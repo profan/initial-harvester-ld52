@@ -1,5 +1,7 @@
 extends Control
 
+const HINT_TIME: float = 2.0
+
 onready var tween: Tween = get_node("tween")
 
 onready var harvester_hp = get_node("margin_container/labels_container/harvester_health")
@@ -7,10 +9,19 @@ onready var harvester_time = get_node("margin_container/labels_container/harvest
 onready var harvester_crops_harvested = get_node("margin_container/labels_container/harvester_crops_harvested")
 onready var harvester_crops_ruined = get_node("margin_container/labels_container/harvester_crops_ruined")
 
+onready var hint1 = get_node("margin_container/hints/hint1")
+onready var hint2 = get_node("margin_container/hints/hint2")
+onready var hint3 = get_node("margin_container/hints/hint3")
+
 onready var win_label = get_node("margin_container/you_have_won")
 onready var restart_label = get_node("margin_container/restart_if_you_want")
 
 func _ready():
+	
+	# not visible initially
+	hint1.visible = false
+	hint2.visible = false
+	hint3.visible = false
 	
 	# not visible initially :)
 	win_label.visible = false
@@ -19,6 +30,45 @@ func _ready():
 	# signals
 	Game.connect("on_game_won", self, "_on_game_won")
 	Game.connect("on_game_lost", self, "_on_game_lost")
+	
+	if Game.is_game_started():
+		_display_hints_on_game_start()
+	else:
+		yield(Game, "on_game_started")
+		_display_hints_on_game_start()
+
+func _display_hints_on_game_start():
+	
+	hint1.visible = true
+	hint1.modulate.a = 0.0
+	
+	tween.interpolate_property(hint1, "modulate:a", hint1.modulate.a, 1.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+	tween.interpolate_property(hint1, "modulate:a", 1.0, 0.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, HINT_TIME / 2.0)
+	tween.start()
+	
+	hint1.text = "YOU'VE GOT %s SECONDS UNTIL ALL YOUR CROPS GO BAD!" % [Game.seconds_left_until_game_over()]
+	yield(tween, "tween_all_completed")
+	
+	hint2.visible = true
+	hint2.modulate.a = 0.0
+	
+	tween.interpolate_property(hint2, "modulate:a", hint2.modulate.a, 1.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+	tween.interpolate_property(hint2, "modulate:a", 1.0, 0.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, HINT_TIME / 2.0)
+	tween.start()
+	
+	hint2.text = "... AND REMEMBER, ROCKS ARE NO GOOD FOR YOUR MACHINE!"
+	yield(tween, "tween_all_completed")
+	
+	hint3.visible = true
+	hint3.modulate.a = 0.0
+
+	tween.interpolate_property(hint3, "modulate:a", hint3.modulate.a, 1.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+	tween.interpolate_property(hint3, "modulate:a", 1.0, 0.0, HINT_TIME / 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, HINT_TIME / 2.0)
+	tween.start()
+
+	hint3.text = "GOOD LUCK, AND MAINTAIN THRESHING VELOCITY"
+	yield(tween, "tween_all_completed")
+	
 
 func _input(event):
 	if event is InputEvent:

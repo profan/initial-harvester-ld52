@@ -32,11 +32,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="menu_game_title" type="Label" parent="menu_margin/menu_container"]
-margin_left = 64.0
-margin_right = 147.0
+margin_left = 31.0
+margin_right = 180.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
-text = "THRESHER"
+text = "INITIAL HARVESTER"
 align = 1
 
 [node name="menu_game_title_spacer" type="Label" parent="menu_margin/menu_container"]

@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="thresher"
+config/name="initial-harvester"
 run/main_scene="res://menus/splash_screen.tscn"
 config/icon="res://icon.png"
 

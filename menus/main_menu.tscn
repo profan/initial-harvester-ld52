@@ -24,43 +24,42 @@ custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
 [node name="menu_container" type="VBoxContainer" parent="menu_margin"]
-margin_left = 457.0
+margin_left = 437.0
 margin_top = 233.0
-margin_right = 566.0
+margin_right = 586.0
 margin_bottom = 367.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="menu_game_title" type="Label" parent="menu_margin/menu_container"]
-margin_left = 13.0
-margin_right = 96.0
+margin_right = 149.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
-text = "THRESHER"
+text = "INITIAL HARVESTER"
 align = 1
 
 [node name="menu_game_title_spacer" type="Label" parent="menu_margin/menu_container"]
-margin_left = 54.0
+margin_left = 74.0
 margin_top = 24.0
-margin_right = 54.0
+margin_right = 74.0
 margin_bottom = 44.0
 size_flags_horizontal = 4
 align = 1
 
 [node name="menu_buttons" type="VBoxContainer" parent="menu_margin/menu_container"]
 margin_top = 48.0
-margin_right = 109.0
+margin_right = 149.0
 margin_bottom = 134.0
 
 [node name="start_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
-margin_right = 109.0
+margin_right = 149.0
 margin_bottom = 26.0
 text = "START GAME"
 flat = true
 
 [node name="how_play_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
 margin_top = 30.0
-margin_right = 109.0
+margin_right = 149.0
 margin_bottom = 56.0
 text = "HOW PLAY"
 flat = true
@@ -75,7 +74,7 @@ flat = true
 
 [node name="quit_game_btn" type="Button" parent="menu_margin/menu_container/menu_buttons"]
 margin_top = 60.0
-margin_right = 109.0
+margin_right = 149.0
 margin_bottom = 86.0
 text = "QUIT"
 flat = true
