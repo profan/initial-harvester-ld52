@@ -142,6 +142,7 @@ func _handle_collisions_with_static_bodies():
 
 func _on_harvester_destroyed():
 	is_destroyed = true
+	e1.emitting = false
 	sprite.frame = 3
 
 func _physics_process(delta):

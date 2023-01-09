@@ -34,6 +34,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
+[node name="tween" type="Tween" parent="canvas/game_ui"]
+
 [node name="margin_container" type="MarginContainer" parent="canvas/game_ui"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -76,6 +78,7 @@ margin_left = 412.0
 margin_top = 276.0
 margin_right = 612.0
 margin_bottom = 324.0
+rect_pivot_offset = Vector2( 103, 0 )
 size_flags_horizontal = 4
 text = "YOU WRECKED THE HARVESTER!
 

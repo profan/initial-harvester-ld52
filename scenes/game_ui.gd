@@ -1,5 +1,7 @@
 extends Control
 
+onready var tween: Tween = get_node("tween")
+
 onready var harvester_hp = get_node("margin_container/labels_container/harvester_health")
 onready var harvester_time = get_node("margin_container/labels_container/harvester_time")
 onready var harvester_crops_harvested = get_node("margin_container/labels_container/harvester_crops_harvested")
@@ -20,7 +22,13 @@ func _on_game_won():
 	restart_label.visible = false
 
 func _on_game_lost():
+	
 	restart_label.visible = true
+	
+	# tween the restart labels rotation
+	tween.repeat = true
+	tween.interpolate_property(restart_label, "rect_rotation", 0.0, 360.0, tween.TRANS_QUART, tween.EASE_IN_OUT)
+	tween.start()
 
 func _process(delta):
 	harvester_hp.text = "HEALTH: %s" % Game.harvester_health()
