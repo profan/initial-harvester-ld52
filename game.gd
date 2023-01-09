@@ -2,7 +2,7 @@ extends Node
 
 const DIRT_TILE_VALUE = 6
 const WHEAT_TILE_VALUE = 174
-const TIME_ATTACK_TIME_LIMIT = 10
+const TIME_ATTACK_TIME_LIMIT = 200
 
 signal on_game_started
 signal on_game_ended
@@ -54,6 +54,9 @@ class GameState extends Reference:
 	
 	func seconds_passed() -> float:
 		return _current_game_timer
+	
+	func time_attack_time_limit() -> int:
+		return _time_attack_time_limit
 	
 	func total_crops_to_thresh() -> int:
 		return _total_crops_to_thresh
@@ -152,6 +155,9 @@ func threshed_crops() -> int:
 
 func ruined_crops() -> int:
 	return _current_game_state.crops_ruined()
+
+func seconds_left_until_game_over() -> int:
+	return _current_game_state.time_attack_time_limit() - seconds_passed_since_game_start()
 
 func seconds_passed_since_game_start() -> int:
 	var seconds_passed_since_start = _current_game_state.seconds_passed() if _current_game_state != null else 0.0
